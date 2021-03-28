@@ -8,7 +8,7 @@ function handleMessage(message) {
     document.getElementById("input").value = ""
 };
 
-const ws = new WebSocket('wss://localhost:4568');
+const ws = new WebSocket('wss://' + window.location.hostname + ':4568');
 let pseudo;
 
 function handleTyping(ele) {
