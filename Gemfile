@@ -1,7 +1,7 @@
 ruby '>= 2.7.2'
 source 'https://rubygems.org'
 
-gem 'sinatra'
-gem 'faye'
-gem 'haml'
 gem 'thin'
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'sinatra-websocket'
