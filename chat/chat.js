@@ -1,8 +1,8 @@
-function handleMessage(message) {
+function displayMessage(pseudo, message) {
     let messageList = document.getElementById("msg-list");
     let li = document.createElement("li");
     li.className = "list-group-item";
-    li.appendChild(document.createTextNode(message));
+    li.appendChild(document.createTextNode(pseudo + " : " + message));
     messageList.appendChild(li);
 
     document.getElementById("input").value = ""
@@ -13,7 +13,8 @@ let pseudo;
 
 function handleTyping(ele) {
     if(event.key === 'Enter') {
-        ws.send(pseudo + ":" + ele.value);
+        toSend = JSON.stringify({"type": "message", "pseudo" : pseudo, "message": ele.value})
+        ws.send(toSend);
     }
 }
 
@@ -23,32 +24,26 @@ window.onload = function(){
     ws.onclose   = function()  { console.log('websocket closed'); }
 
     ws.onmessage = function(m) {
-        handleMessage(m.data);
+
+        if (m.data == "pong") {
+            console.log(".")
+        } else {
+            let msg = JSON.parse(m.data);
+            console.log(msg)
+            if (msg.type == "info") {
+                displayMessage("INFO", msg.content);
+            }
+            if (msg.type == "message") {
+                displayMessage(msg.pseudo, msg.message);
+            }
+        }
     };
 
     pseudo = document.getElementById("pseudo").innerHTML
+
+    var connection = setInterval(ping_wsServer, 30000)
 }
-/*    (function(){
-        var show = function(el){
-            return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
-        }(document.getElementById('msgs'));
 
-        console.log(window.location.host)
-        console.log(window.location.pathname)
-
-        var ws       = new WebSocket('ws://localhost:4567/websockets');
-        ws.onopen    = function()  { show('websocket opened'); };
-        ws.onclose   = function()  { show('websocket closed'); }
-        ws.onmessage = function(m) { show('websocket message: ' +  m.data); };
-
-        var sender = function(f){
-            var input     = document.getElementById('input');
-            input.onclick = function(){ input.value = "" };
-            f.onsubmit    = function(){
-                ws.send(input.value);
-                input.value = "send a message";
-                return false;
-            }
-        }(document.getElementById('form'));
-    })();
-}*/
+function ping_wsServer() {
+    ws.send("ping");
+}

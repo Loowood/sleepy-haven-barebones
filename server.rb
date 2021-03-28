@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra-websocket'
+require 'json'
 
 set :server, 'thin'
 set :sockets, []
@@ -11,11 +12,21 @@ get '/' do
     else
         request.websocket do |ws|
             ws.onopen do
-                ws.send("Hello World!")
+                hashToSend = {"type": "info", "content": "Hello World!"}
+                toSend = JSON.generate(hashToSend)
+                ws.send(toSend)
                 settings.sockets << ws
             end
-            ws.onmessage do |msg|
-                EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+            ws.onmessage do |raw_data|
+                if raw_data == "ping"
+                    ws.send("pong")
+                    next
+                end
+                puts raw_data
+                data = JSON.parse(raw_data)
+                if data["type"] == "message"
+                    EM.next_tick { settings.sockets.each{|s| s.send(raw_data) } }
+                end
             end
             ws.onclose do
                 warn("websocket closed")
