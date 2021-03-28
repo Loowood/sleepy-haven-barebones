@@ -1,2 +1,3 @@
-require './server'
+$: << '.'
+require 'chatterbox'
 run Sinatra::Application
