@@ -4,8 +4,6 @@ function displayMessage(pseudo, message) {
     li.className = "list-group-item";
     li.appendChild(document.createTextNode(pseudo + " : " + message));
     messageList.appendChild(li);
-
-    document.getElementById("input").value = ""
 };
 
 const ws = new WebSocket('wss://' + window.location.host);
@@ -15,6 +13,7 @@ function handleTyping(ele) {
     if(event.key === 'Enter') {
         toSend = JSON.stringify({"type": "message", "pseudo" : pseudo, "message": ele.value})
         ws.send(toSend);
+        ele.value = ""
     }
 }
 
