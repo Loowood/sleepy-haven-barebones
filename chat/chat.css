@@ -1,8 +1,18 @@
 #main-div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     max-height: 95%;
     height: 95%;
+}
+
+#conversation-div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 8;
+}
+
+#side-div {
+    flex-grow: 2;
 }
 
 #msg-list {
@@ -25,4 +35,9 @@
 
 #upper-container * {
     margin: 0;
+}
+
+body {
+    background-color: #262626;
+    color: #6bbcec;
 }

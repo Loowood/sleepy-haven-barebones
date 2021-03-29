@@ -18,16 +18,23 @@
             </div>
 
             <div class="container" id="main-div">
-                <ul class="list-group list-group-flush" id="msg-list"></ul>
+                <div id="conversation-div">
+                    <ul class="list-group list-group-flush" id="msg-list"></ul>
 
-                <!-- Input Group -->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="pseudo"><%= pseudo %></span>
+                    <!-- Input Group -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="pseudo"><%= pseudo %></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Your message here"
+                                aria-label="Username" aria-describedby="basic-addon1" id="input"  onkeydown="handleTyping(this)">
                     </div>
-                <input type="text" class="form-control" placeholder="Your message here"
-                        aria-label="Username" aria-describedby="basic-addon1" id="input"  onkeydown="handleTyping(this)">
-            </div>
+                </div>
+
+            <div id="side-div">
+                    <p> Users </p>
+                    <ul class="list-group list-group-flush" id="users-list"></ul>
+                </div>
         </div>
     </body>
 </html>
