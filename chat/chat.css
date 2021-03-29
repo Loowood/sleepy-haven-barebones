@@ -1,0 +1,28 @@
+#main-div {
+    display: flex;
+    flex-direction: column;
+    max-height: 95%;
+    height: 95%;
+}
+
+#msg-list {
+    flex-grow: 29;
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
+#message-input-container {
+    bottom: 0;
+    flex-grow: 1;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 0;
+}
+
+.input-group-prepend span {
+    height: 100%;
+}
+
+#upper-container * {
+    margin: 0;
+}

@@ -9,18 +9,25 @@
                 integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
                 crossorigin="anonymous">
         <script src="chat.js"></script>
+        <link rel="stylesheet" href="chat.css" style="text/css">
     </head>
     <body>
-        <div class="container">
-            <h1>Welcome to the chat !</h1>
-            <ul class="list-group list-group-flush" id="msg-list"></ul>
+        <div class="container" id="root">
+            <div id="upper-container" class="container">
+                <h1>Welcome to the chat !</h1>
+            </div>
 
-            <!-- Input Group -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="pseudo"><%= pseudo %></span>
-                </div>
-            <input type="text" class="form-control" placeholder="Your message here" aria-label="Username" aria-describedby="basic-addon1" id="input"  onkeydown="handleTyping(this)">
+            <div class="container" id="main-div">
+                <ul class="list-group list-group-flush" id="msg-list"></ul>
+
+                <!-- Input Group -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="pseudo"><%= pseudo %></span>
+                    </div>
+                <input type="text" class="form-control" placeholder="Your message here"
+                        aria-label="Username" aria-describedby="basic-addon1" id="input"  onkeydown="handleTyping(this)">
+            </div>
         </div>
     </body>
 </html>

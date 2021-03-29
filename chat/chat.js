@@ -2,15 +2,17 @@ function displayMessage(pseudo, message) {
     let messageList = document.getElementById("msg-list");
     let li = document.createElement("li");
     li.className = "list-group-item";
+    li.style.overflowWrap = "break-word";
     li.appendChild(document.createTextNode(pseudo + " : " + message));
     messageList.appendChild(li);
+    li.scrollIntoView();
 };
 
 const ws = new WebSocket('wss://' + window.location.host);
 let pseudo;
 
 function handleTyping(ele) {
-    if(event.key === 'Enter') {
+    if(event.key === 'Enter' && ele.value != "") {
         toSend = JSON.stringify({"type": "message", "pseudo" : pseudo, "message": ele.value})
         ws.send(toSend);
         ele.value = ""

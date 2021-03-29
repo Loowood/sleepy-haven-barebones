@@ -12,7 +12,7 @@ get '/' do
     else
         request.websocket do |ws|
             ws.onopen do
-                hashToSend = {"type": "info", "content": "Hello World!"}
+                hashToSend = {"type": "info", "content": "You are connected !"}
                 toSend = JSON.generate(hashToSend)
                 ws.send(toSend)
                 settings.sockets << ws
@@ -25,7 +25,9 @@ get '/' do
                 puts raw_data
                 data = JSON.parse(raw_data)
                 if data["type"] == "message"
-                    EM.next_tick { settings.sockets.each{|s| s.send(raw_data) } }
+                    if data["message"] != ""
+                        EM.next_tick { settings.sockets.each{|s| s.send(raw_data) } }
+                    end
                 end
             end
             ws.onclose do
@@ -42,4 +44,8 @@ end
 
 get '/chat.js' do
     send_file 'chat/chat.js'
+end
+
+get '/chat.css' do
+    send_file 'chat/chat.css'
 end
